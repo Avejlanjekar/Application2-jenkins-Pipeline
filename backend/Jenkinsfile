@@ -21,10 +21,10 @@ def promoteImage(String sourceImage, String targetImage, String source_DH_Creden
 
 def deployToEks(String cluster_credentials, String namespace, String environment){
     withKubeConfig(credentialsId: "${cluster_credentials}", namespace: "${namespace}"){
-        sh 'echo deploying to ${namespace} namespace...'
-        sh "sed -i -e 's/{{ENV}}/${environment}/g' -e 's/{{COMMITID}}/${env.GIT_COMMIT}/g' kube/backend-deployment.yml "
-        sh 'kubectl apply -f kube/backend-deployment.yml'
-        sh 'kubectl apply -f kube/backend-service.yml'
+        sh "echo deploying to ${namespace} namespace..."
+        sh "sed -i -e 's/{{ENV}}/${environment}/g' -e 's/{{COMMITID}}/${env.GIT_COMMIT}/g' k8s/backend-deployment.yml "
+        sh 'kubectl apply -f k8s/backend-deployment.yml'
+        sh 'kubectl apply -f k8s/backend-service.yml'
     }
 }
 
