@@ -20,8 +20,8 @@ def promoteImage(String sourceImage, String targetImage, String source_DH_Creden
 
 def deployToEks(String cluster_credentials, String namespace, String environment){
     withKubeConfig(credentialsId: "${cluster_credentials}", namespace: "${namespace}"){
-        sh 'echo deploying to ${namespace} namespace...'
-        sh "sed -i -e 's/{{ENV}}/${environment}/g' -e 's/{{COMMITID}}/${env.GIT_COMMIT}/g' kube/backend-deployment.yml "
+        sh "echo deploying to ${namespace} namespace..."
+        sh "sed -i -e 's/{{ENV}}/${environment}/g' -e 's/{{COMMITID}}/${env.GIT_COMMIT}/g' kube/mariadb-deployment.yml "
         sh 'kubectl apply -f kube/secret.yml'
         sh 'kubectl apply -f kube/mariadb-deployment.yml'
         sh 'kubectl apply -f kube/mariadb-service.yml'
@@ -35,12 +35,12 @@ pipeline{
 
     environment{
 
-        BUILD_CONTEXT='./backend'
+        BUILD_CONTEXT='./db'
 
-        BACKEND_IMAGE_DEV= 'avejlanjekar45/nginx-flask-mysql-db-qa'
+        BACKEND_IMAGE_DEV= 'avejlanjekar45/nginx-flask-mysql-db-dev'
         BACKEND_IMAGE_QA= 'avejlanjekar45/nginx-flask-mysql-db-qa'
-        BACKEND_IMAGE_UAT='avejlanjekar45/nginx-flask-mysql-db-qa'
-        BACKEND_IMAGE_PROD='avejlanjekar45/nginx-flask-mysql-db-qa'
+        BACKEND_IMAGE_UAT='avejlanjekar45/nginx-flask-mysql-db-uat'
+        BACKEND_IMAGE_PROD='avejlanjekar45/nginx-flask-mysql-db-prod'
 
         REGISTRY_URL= 'https://registry.hub.docker.com'
 
