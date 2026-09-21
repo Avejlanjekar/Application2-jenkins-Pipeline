@@ -23,8 +23,8 @@ def deployToEks(String cluster_credentials, String namespace, String environment
         sh "echo deploying to ${namespace} namespace..."
         sh "sed -i -e 's/{{ENV}}/${environment}/g' -e 's/{{COMMITID}}/${env.GIT_COMMIT}/g' kube/mariadb-deployment.yml "
         sh 'kubectl apply -f kube/secret.yml'
-        sh 'kubectl apply -f kube/mariadb-deployment.yml'
-        sh 'kubectl apply -f kube/mariadb-service.yml'
+        sh 'kubectl apply -f k8s/mariadb-deployment.yml'
+        sh 'kubectl apply -f k8s/mariadb-service.yml'
     }
 }
 
