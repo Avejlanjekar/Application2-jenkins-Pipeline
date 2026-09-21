@@ -33,7 +33,7 @@ pipeline{
 
     environment{
 
-        BUILD_CONTEXT='./frontend'
+        BUILD_CONTEXT='./proxy'
 
         FRONTEND_IMAGE_DEV= 'avejlanjekar45/nginx-flask-mysql-frontend-dev'
         FRONTEND_IMAGE_QA= 'avejlanjekar45/nginx-flask-mysql-frontend-qa'
